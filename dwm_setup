@@ -1,0 +1,30 @@
+git clone https://github.com/jaxtechnologies/wallpapers
+
+feh --bg-fill ~/wallpapers/04_odin_dark.jpg
+
+vim .xinitrc
+  ~/.fehbg
+  exec dwm
+
+
+
+sudo pacman -Syu lightdm lightdm-gtk-greeter
+systemctl enable lightdm
+systemctl status lightdm
+
+cd /usr/share/
+
+sudo mkdir xsessions
+
+cd xsessions
+
+sudo vim dwm.desktop
+[Desktop Entry]
+Encoding=UTF-8
+Name=DWM
+Comment=Dynamic Window Manager
+Exec=dwm
+Icon=dwm
+Type=XSession
+
+
