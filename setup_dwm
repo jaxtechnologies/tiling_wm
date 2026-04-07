@@ -36,34 +36,44 @@ clear
 #################################### INSTALL BASE APPS ###########################################
 ##################################################################################################
 
-	sudo pacman -Syu git vim gcc make pkgconf xorg xorg-xinit feh ranger lightdm lightdm-gtk-greeter openssh -y 2>&1
-	
-	git clone https://git.suckless.org/dwm
-	git clone https://git.suckless.org/demu
-	git clone https://git.suckless.org/st
-	git clone https://github.com/jaxtechnologies/wallpapers
-	
-	cd dwm
-	sudo make clean install
-	cd ..
-	
-	cd dmenu
-	sudo make clean install
-	cd ..
-	
-	cd st
-	sudo make clean install
-	cd ..
+sudo pacman -Syu git vim gcc make pkgconf xorg xorg-xinit feh ranger lightdm lightdm-gtk-greeter openssh -y 2>&1
+sleep 2
 
-	feh –bg-fill ~/wallpapers/04_odin_dark.jpg
+git clone https://git.suckless.org/dwm
+sleep 2
 
-    [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
-    sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
-    cp $INSTALL_PATH/configs/.xinitrc ~/.xinitrc 2>&1 | tee -a $LOG
-    clear
+git clone https://git.suckless.org/demu
+sleep 2
 
-	systemctl enable lightdm
-	systemctl status lightdm
+git clone https://git.suckless.org/st
+sleep 2
+
+git clone https://github.com/jaxtechnologies/wallpapers
+sleep 2
+
+cd dwm
+sudo make clean install
+cd ..
+sleep 2
+
+cd dmenu
+sudo make clean install
+cd ..
+sleep 2
+
+cd st
+sudo make clean install
+cd ..
+sleep 2
+
+feh –bg-fill ~/wallpapers/04_odin_dark.jpg
+
+[ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
+sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/.xinitrc ~/.xinitrc 2>&1 | tee -a $LOG
+
+systemctl enable lightdm
+systemctl status lightdm
 
 #########################################################################################
 #################################### SETUP COMPLETE #####################################
