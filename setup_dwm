@@ -1,21 +1,18 @@
 #!/bin/bash
-# NAME: JTOS
-# DESC: An installation and deployment script for JaxTech's Debian desktop.
+# NAME: JT_DWM
+# DESC: An installation and deployment script for JaxTech's DWM Desktop.
 # Adapted from Derek Taylor's (DistroTube) DTOS script...
 # Top logo inspiration came from Chris Titus's ArchTitus script...
-# Whiptail wiki: https://en.wikibooks.org/wiki/Bash_Shell_Scripting/Whiptail
-# Removed < | tee -a $LOG > from all the "sudo nala install" lines as it caused terminal formatting issues
 
 
 ################################################################################
 #################################### To Do #####################################
 ################################################################################
-# Load Fish?
-# Timeshift?
+
 
 
 INSTALL_PATH=$(pwd)
-LOG=$INSTALL_PATH/jaxtech_setup.log
+LOG=$INSTALL_PATH/dwm_setup.log
 rm $LOG > /dev/null 2>&1
 
 clear
