@@ -1,4 +1,4 @@
-pacman -Syu git vim gcc make pkgconf xorg xorg-xinit feh ranger
+sudo pacman -Syu git vim gcc make pkgconf xorg xorg-xinit feh ranger lightdm lightdm-gtk-greeter
 
 git clone https://git.suckless.org/dwm
 
@@ -22,31 +22,15 @@ git clone https://github.com/jaxtechnologies/wallpapers
 
 feh –bg-fill ~/wallpapers/04_odin_dark.jpg
 
+##### Create this file to upload
 vim .xinitrc
 	~/.fehbg
 	exec dwm
 
-startx
-
-Add startx to .bash_profile
-vi .bash_profile
-[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx –vt1 
+##### Manually startx
+#startx
 
 
-
-
-
-git clone https://github.com/jaxtechnologies/wallpapers
-
-feh --bg-fill ~/wallpapers/04_odin_dark.jpg
-
-vim .xinitrc
-  ~/.fehbg
-  exec dwm
-
-
-
-sudo pacman -Syu lightdm lightdm-gtk-greeter
 systemctl enable lightdm
 systemctl status lightdm
 
@@ -64,5 +48,3 @@ Comment=Dynamic Window Manager
 Exec=dwm
 Icon=dwm
 Type=XSession
-
-
