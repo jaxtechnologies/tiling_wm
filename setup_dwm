@@ -64,6 +64,7 @@ clear
 cd ~/dwm
 echo "Compiling dwm - Dynamic Window Manager"
 sudo make clean install
+echo "Compiling dwm - Complete"
 sleep 10
 
 clear
@@ -71,6 +72,7 @@ clear
 cd ~/dmenu
 echo "Compiling dmenu - Dynamic Menu"
 sudo make clean install
+echo "Compiling dmenu - Complete"
 sleep 10
 
 clear
@@ -78,6 +80,7 @@ clear
 cd ~/st
 echo "Compiling st - Simple Terminal"
 sudo make clean install
+echo "Compiling st - Complete"
 sleep 10
 
 clear
@@ -85,10 +88,9 @@ clear
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
 sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
-sleep 10
 
-clear
-
+echo "Installing lightdm - Please enter sudo password when requested..."
+sleep 5
 systemctl enable lightdm
 systemctl status lightdm
 sleep 10
