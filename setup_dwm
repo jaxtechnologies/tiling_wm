@@ -37,47 +37,57 @@ clear
 ##################################################################################################
 
 sudo pacman -Syu git vim gcc make pkgconf xorg xorg-xinit feh ranger lightdm lightdm-gtk-greeter openssh -y 2>&1
-sleep 5
+sleep 10
 
 clear
 
 git clone https://git.suckless.org/dwm ~/dwm
-sleep 5
+sleep 10
+
+clear
 
 git clone https://git.suckless.org/dmenu ~/dmenu
-sleep 5
+sleep 10
+
+clear
 
 git clone https://git.suckless.org/st ~/st
-sleep 5
+sleep 10
+
+clear
 
 git clone https://github.com/jaxtechnologies/wallpapers ~/wallpapers
-sleep 5
+sleep 10
 
 clear
 
 cd ~/dwm
 sudo make clean install
-sleep 5
-
-cd ~/dmenu
-sudo make clean install
-sleep 5
-
-cd ~/st
-sudo make clean install
-sleep 5
+sleep 10
 
 clear
 
-feh –bg-fill ~/wallpapers/04_odin_dark.jpg
+cd ~/dmenu
+sudo make clean install
+sleep 10
+
+cd ~/st
+sudo make clean install
+sleep 10
+
+clear
+
+feh --bg-fill ~/wallpapers/04_odin_dark.jpg
 
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
 sudo cp $INSTALL_PATH/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/.xinitrc ~/.xinitrc 2>&1 | tee -a $LOG
+sleep 10
+
+clear
 
 systemctl enable lightdm
 systemctl status lightdm
-
 sleep 10
 
 #########################################################################################
