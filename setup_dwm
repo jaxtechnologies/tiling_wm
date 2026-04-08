@@ -62,21 +62,27 @@ sleep 10
 clear
 
 cd ~/dwm
+echo "Compiling dwm - Dynamic Window Manager"
 sudo make clean install
 sleep 10
 
 clear
 
 cd ~/dmenu
-sudo make clean install
-sleep 10
-
-cd ~/st
+echo "Compiling dmenu - Dynamic Menu"
 sudo make clean install
 sleep 10
 
 clear
 
+cd ~/st
+echo "Compiling st - Simple Terminal"
+sudo make clean install
+sleep 10
+
+clear
+
+export DISPLAY=:0
 feh --bg-fill ~/wallpapers/04_odin_dark.jpg
 
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
