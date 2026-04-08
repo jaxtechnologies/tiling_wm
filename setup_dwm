@@ -36,7 +36,7 @@ clear
 #################################### INSTALL BASE APPS ###########################################
 ##################################################################################################
 
-sudo pacman -Syu git vim gcc make pkgconf xorg xorg-xinit feh ranger lightdm lightdm-gtk-greeter openssh
+sudo pacman -Syu git vim gcc make base-devel pkgconf xorg xorg-xinit feh ranger lightdm lightdm-gtk-greeter openssh
 sleep 10
 
 clear
