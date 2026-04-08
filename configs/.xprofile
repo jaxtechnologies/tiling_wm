@@ -1,2 +1,2 @@
-feh --bg-fill ~/wallpapers/04_odin_dark.jpg
+feh --bg-fill ~/wallpapers/04_odin_dark.jpg &
 exec dwm
