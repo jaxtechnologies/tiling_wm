@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=feh --bg-scale ~/wallpapers/04_odin_dark.jpg
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name=FehWallpaper

@@ -1,2 +1,0 @@
-~/.fehbg
-exec dwm
