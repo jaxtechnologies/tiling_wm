@@ -91,8 +91,8 @@ cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
 
 echo "Installing lightdm - Please enter sudo password when requested..."
 sleep 5
-systemctl enable lightdm
-systemctl status lightdm
+sudo systemctl enable lightdm
+sudo systemctl start lightdm
 sleep 10
 
 #########################################################################################
