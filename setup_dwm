@@ -41,6 +41,7 @@ sleep 10
 
 clear
 
+##### I am including my patched version in the clone
 #git clone https://git.suckless.org/dwm ~/dwm
 #sleep 10
 
