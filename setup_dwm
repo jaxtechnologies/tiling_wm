@@ -36,7 +36,7 @@ clear
 #################################### INSTALL BASE APPS ###########################################
 ##################################################################################################
 
-sudo pacman -Syu git vim gcc make base-devel pkgconf xorg xorg-xinit feh ttf-mononoki-nerd ranger lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad
+sudo pacman -Syu git vim gcc make base-devel pkgconf xorg xorg-xinit feh ttf-mononoki-nerd noto-fonts-emoji ranger lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad
 sleep 10
 
 clear
