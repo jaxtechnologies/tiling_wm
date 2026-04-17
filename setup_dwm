@@ -42,7 +42,7 @@ sleep 10
 clear
 
 #git clone https://git.suckless.org/dwm ~/dwm
-sleep 10
+#sleep 10
 
 clear
 
@@ -61,7 +61,7 @@ sleep 10
 
 clear
 
-cp -r $INSTALL_PATH/dwm ~/ 2>&1 | tee -a $LOG
+cp -r $INSTALL_PATH/dwm ~/dwm 2>&1 | tee -a $LOG
 cd ~/dwm
 echo "Compiling dwm - Dynamic Window Manager"
 sudo make clean install
