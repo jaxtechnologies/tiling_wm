@@ -22,9 +22,9 @@ static const char *colors[][3]      = {
 // ICONS
 // static const char *tags[] = { "󰅩", "󰖟", "", "󱌖", "", "", "󱋊", "󰧮", "" };
 // PHRASE
-static const char *tags[] = { "1-dev", "2-www", "3-sys", "4-vbox", "5-mus", "6-vid", "7-chat", "8-doc", "9-gfx" };
+// static const char *tags[] = { "1-dev", "2-www", "3-sys", "4-vbox", "5-mus", "6-vid", "7-chat", "8-doc", "9-gfx" };
 // NUMBERS
-// static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
