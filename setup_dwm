@@ -90,6 +90,9 @@ clear
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
 sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
+if [ -d ~/.config/fish/functions/ ]; then
+cp $INSTALL_PATH/configs/vi.fish ~/.config/fish/functions/ 2>&1 | tee -a $LOG
+fi
 
 echo "Installing lightdm - Please enter sudo password when requested..."
 sleep 5
