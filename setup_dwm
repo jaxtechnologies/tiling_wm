@@ -89,7 +89,7 @@ clear
 
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
 sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
-[ ! -d ~/.config/fish ] && sudo mkdir -p ~/.config/fish 2>&1 | tee -a $LOG
+[ ! -d ~/.config/fish ] && mkdir -p ~/.config/fish 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/config.fish ~/.config/fish/ 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
 if [ -d ~/.config/fish/functions/ ]; then
