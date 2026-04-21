@@ -96,7 +96,7 @@ cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
 #cp $INSTALL_PATH/configs/vi.fish ~/.config/fish/functions/ 2>&1 | tee -a $LOG
 #fi
 
-echo "Installing lightdm - Please enter sudo password when requested..."
+echo "Installing lightdm - Please enter sudo password if requested..."
 sleep 5
 sudo systemctl enable lightdm
 sudo systemctl start lightdm
