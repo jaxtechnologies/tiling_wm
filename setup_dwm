@@ -92,6 +92,10 @@ sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $L
 [ ! -d ~/.config/fish ] && mkdir -p ~/.config/fish 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/config.fish ~/.config/fish/ 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
+chsh -s /bin/fish
+########################################################################################################
+##### The following is no longer needed because added alias to config.fish but left for reuse eleswhere
+########################################################################################################
 #if [ -d ~/.config/fish/functions/ ]; then
 #cp $INSTALL_PATH/configs/vi.fish ~/.config/fish/functions/ 2>&1 | tee -a $LOG
 #fi
