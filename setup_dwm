@@ -37,7 +37,7 @@ clear
 #################################### INSTALL BASE APPS ###########################################
 ##################################################################################################
 
-sudo pacman -Syu fish eza fastfetch git vim gcc make base-devel pkgconf xorg xorg-xinit feh ttf-mononoki-nerd noto-fonts-emoji \
+sudo pacman -Syu fish eza fastfetch git vim gcc make base-devel pkgconf xorg xorg-xinit feh terminus-font ttf-mononoki-nerd noto-fonts-emoji \
 ranger lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet
 sleep 10
 
