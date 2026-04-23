@@ -57,6 +57,7 @@
                                * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
 #define ISVISIBLEONTAG(C, T)    ((C->tags & T))
 #define ISVISIBLE(C)            ISVISIBLEONTAG(C, C->mon->tagset[C->mon->seltags])
+#define LENGTH(X)               (sizeof X / sizeof X[0])
 #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
 #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
 #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
@@ -127,6 +128,10 @@ struct Monitor {
 	int by;               /* bar geometry */
 	int mx, my, mw, mh;   /* screen size */
 	int wx, wy, ww, wh;   /* window area  */
+	int gappih;           /* horizontal gap between windows */
+	int gappiv;           /* vertical gap between windows */
+	int gappoh;           /* horizontal outer gaps */
+	int gappov;           /* vertical outer gaps */
 	unsigned int seltags;
 	unsigned int sellt;
 	unsigned int tagset[2];
@@ -220,7 +225,6 @@ static void showhide(Client *c);
 static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
-static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggletag(const Arg *arg);
@@ -521,7 +525,7 @@ buttonpress(XEvent *e)
 			arg.ui = 1 << i;
 		} else if (ev->x < x + TEXTW(selmon->ltsymbol))
 			click = ClkLtSymbol;
-		else if (ev->x > selmon->ww - (int)TEXTW(stext) + lrpad - 2)
+		else if (ev->x > selmon->ww - (int)TEXTW(stext))
 			click = ClkStatusText;
 		else
 			click = ClkWinTitle;
@@ -567,7 +571,7 @@ cleanup(void)
 	for (i = 0; i < CurLast; i++)
 		drw_cur_free(drw, cursor[i]);
 	for (i = 0; i < LENGTH(colors); i++)
-		drw_scm_free(drw, scheme[i], 3);
+		free(scheme[i]);
 	free(scheme);
 	XDestroyWindow(dpy, wmcheckwin);
 	drw_free(drw);
@@ -721,6 +725,10 @@ createmon(void)
 	m->nmaster = nmaster;
 	m->showbar = showbar;
 	m->topbar = topbar;
+	m->gappih = gappih;
+	m->gappiv = gappiv;
+	m->gappoh = gappoh;
+	m->gappov = gappov;
 	m->lt[0] = &layouts[0];
 	m->lt[1] = &layouts[1 % LENGTH(layouts)];
 	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
@@ -947,15 +955,14 @@ focusstack(const Arg *arg)
 Atom
 getatomprop(Client *c, Atom prop)
 {
-	int format;
-	unsigned long nitems, dl;
+	int di;
+	unsigned long dl;
 	unsigned char *p = NULL;
 	Atom da, atom = None;
 
 	if (XGetWindowProperty(dpy, c->win, prop, 0L, sizeof atom, False, XA_ATOM,
-		&da, &format, &nitems, &dl, &p) == Success && p) {
-		if (nitems > 0 && format == 32)
-			atom = *(long *)p;
+		&da, &di, &dl, &dl, &p) == Success && p) {
+		atom = *(Atom *)p;
 		XFree(p);
 	}
 	return atom;
@@ -981,10 +988,10 @@ getstate(Window w)
 	Atom real;
 
 	if (XGetWindowProperty(dpy, w, wmatom[WMState], 0L, 2L, False, wmatom[WMState],
-		&real, &format, &n, &extra, &p) != Success)
+		&real, &format, &n, &extra, (unsigned char **)&p) != Success)
 		return -1;
-	if (n != 0 && format == 32)
-		result = *(long *)p;
+	if (n != 0)
+		result = *p;
 	XFree(p);
 	return result;
 }
@@ -1260,7 +1267,7 @@ movemouse(const Arg *arg)
 			handler[ev.type](&ev);
 			break;
 		case MotionNotify:
-			if ((ev.xmotion.time - lasttime) <= (1000 / refreshrate))
+			if ((ev.xmotion.time - lasttime) <= (1000 / 60))
 				continue;
 			lasttime = ev.xmotion.time;
 
@@ -1424,7 +1431,7 @@ resizemouse(const Arg *arg)
 			handler[ev.type](&ev);
 			break;
 		case MotionNotify:
-			if ((ev.xmotion.time - lasttime) <= (1000 / refreshrate))
+			if ((ev.xmotion.time - lasttime) <= (1000 / 60))
 				continue;
 			lasttime = ev.xmotion.time;
 
@@ -1527,8 +1534,6 @@ sendmon(Client *c, Monitor *m)
 	c->tags = m->tagset[m->seltags]; /* assign tags of target monitor */
 	attachaside(c);
 	attachstack(c);
-	if (c->isfullscreen)
-		resizeclient(c, m->mx, m->my, m->mw, m->mh);
 	focus(NULL);
 	arrange(NULL);
 }
@@ -1570,10 +1575,12 @@ sendevent(Client *c, Atom proto)
 void
 setfocus(Client *c)
 {
-	if (!c->neverfocus)
+	if (!c->neverfocus) {
 		XSetInputFocus(dpy, c->win, RevertToPointerRoot, CurrentTime);
-	XChangeProperty(dpy, root, netatom[NetActiveWindow], XA_WINDOW, 32,
-		PropModeReplace, (unsigned char *)&c->win, 1);
+		XChangeProperty(dpy, root, netatom[NetActiveWindow],
+			XA_WINDOW, 32, PropModeReplace,
+			(unsigned char *) &(c->win), 1);
+	}
 	sendevent(c, wmatom[WMTakeFocus]);
 }
 
@@ -1783,34 +1790,6 @@ tagmon(const Arg *arg)
 }
 
 void
-tile(Monitor *m)
-{
-	unsigned int i, n, h, mw, my, ty;
-	Client *c;
-
-	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
-	if (n == 0)
-		return;
-
-	if (n > m->nmaster)
-		mw = m->nmaster ? m->ww * m->mfact : 0;
-	else
-		mw = m->ww;
-	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
-		if (i < m->nmaster) {
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-			if (my + HEIGHT(c) < m->wh)
-				my += HEIGHT(c);
-		} else {
-			h = (m->wh - ty) / (n - i);
-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-			if (ty + HEIGHT(c) < m->wh)
-				ty += HEIGHT(c);
-		}
-}
-
-void
 togglebar(const Arg *arg)
 {
 	selmon->showbar = !selmon->showbar;
@@ -1966,7 +1945,7 @@ updatebarpos(Monitor *m)
 }
 
 void
-updateclientlist(void)
+updateclientlist()
 {
 	Client *c;
 	Monitor *m;
