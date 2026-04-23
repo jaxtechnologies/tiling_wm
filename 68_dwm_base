@@ -1,0 +1,130 @@
+#!/bin/bash
+# NAME: JT_DWM
+# DESC: An installation and deployment script for JaxTech's DWM Desktop.
+# Adapted from Derek Taylor's (DistroTube) DTOS script...
+# Top logo inspiration came from Chris Titus's ArchTitus script...
+
+
+################################################################################
+#################################### To Do #####################################
+################################################################################
+#
+# Fix fonts and colors in terminal
+#
+
+INSTALL_PATH=$(pwd)
+LOG=$INSTALL_PATH/dwm_setup.log
+rm $LOG > /dev/null 2>&1
+
+clear
+
+echo -ne "
+   ████████╗  █████╗  ██╗   ██╗  ████████╗ ███████╗  ██████╗ ██╗  ██╗
+   ╚══██╔══╝ ██╔══██╗  ██╗ ██╔╝  ╚══██╔══╝ ██╔════╝ ██╔════╝ ██║  ██║
+      ██║    ███████║   ████╔╝      ██║    ███████╗ ██║      ███████║
+   ██ ██║    ██╔══██║  ██╔╝██╗      ██║    ██╔════╝ ██║      ██╔══██║
+   ╚███╔╝    ██║  ██║ ██╔╝  ██╗     ██║    ███████╗ ╚██████╗ ██║  ██║
+    ╚══╝     ╚═╝  ╚═╝ ╚═╝   ╚═╝     ╚═╝    ╚══════╝  ╚═════╝ ╚═╝  ╚═╝
+"
+echo ""
+echo " Jax|Tech Setup Script will launch in 5 seconds..."
+
+sleep 5
+
+clear
+
+##################################################################################################
+#################################### INSTALL BASE APPS ###########################################
+##################################################################################################
+
+sudo pacman -Syu fish eza fastfetch git vim gcc make base-devel pkgconf xorg xorg-xinit feh terminus-font ttf-mononoki-nerd noto-fonts-emoji \
+ranger lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet
+sleep 10
+
+clear
+
+##### I am including my patched version in the clone
+#git clone https://git.suckless.org/dwm ~/dwm
+#sleep 10
+
+#clear
+
+#git clone https://git.suckless.org/dmenu ~/dmenu
+#sleep 10
+
+#clear
+
+#git clone https://git.suckless.org/st ~/st
+#sleep 10
+
+#clear
+
+git clone https://github.com/jaxtechnologies/wallpapers ~/wallpapers
+sleep 10
+
+clear
+
+cp -r $INSTALL_PATH/dwm-6.5 ~/dwm 2>&1 | tee -a $LOG
+cd ~/dwm
+echo "Compiling dwm - Dynamic Window Manager"
+sudo make clean install
+echo "Compiling dwm - Complete"
+sleep 10
+
+clear
+
+cp -r $INSTALL_PATH/dmenu-5.3 ~/dmenu 2>&1 | tee -a $LOG
+cd ~/dmenu
+echo "Compiling dmenu - Dynamic Menu"
+sudo make clean install
+echo "Compiling dmenu - Complete"
+sleep 10
+
+clear
+
+cp -r $INSTALL_PATH/st-0.9.1 ~/st 2>&1 | tee -a $LOG
+cd ~/st
+echo "Compiling st - Simple Terminal"
+sudo make clean install
+echo "Compiling st - Complete"
+sleep 10
+
+clear
+
+[ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
+sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
+[ ! -d ~/.config/fish ] && mkdir -p ~/.config/fish 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/config.fish ~/.config/fish/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
+chsh -s /bin/fish
+########################################################################################################
+##### The following is no longer needed because added alias to config.fish but left for reuse eleswhere
+########################################################################################################
+#if [ -d ~/.config/fish/functions/ ]; then
+#cp $INSTALL_PATH/configs/vi.fish ~/.config/fish/functions/ 2>&1 | tee -a $LOG
+#fi
+
+echo "Installing lightdm - Please enter sudo password if requested..."
+sleep 5
+sudo systemctl enable lightdm
+sudo systemctl start lightdm
+sleep 10
+
+#########################################################################################
+#################################### SETUP COMPLETE #####################################
+#########################################################################################
+clear
+echo ""
+read -p "Setup is Complete - Reboot the Machine NOW (y/n)? "
+if [ "$REPLY" = "y" ]; then
+
+  echo "" 2>&1 | tee -a $LOG
+  echo Rebooting Now... 2>&1 | tee -a $LOG
+  sudo reboot 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+	cancel
+fi
+
+exit
