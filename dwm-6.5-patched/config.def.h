@@ -1,11 +1,10 @@
 /*
 jaxtech's dwm build
-
+==========================
 patches applied:
 dwm-attachaside-6.6.diff ----- new clients get attached and focused in the stacking area instead of becoming the new master.
 dwm-swallow-6.3.diff ----- terminal swallows launched programs
 dwm-vanitygaps-6.2.diff ----- gaps are functional: your eye is less inclined to drift while working.
-
 */
 
 /* appearance */
