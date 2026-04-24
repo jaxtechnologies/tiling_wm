@@ -10,7 +10,6 @@ dwm-vanitygaps-6.2.diff ----- gaps are functional: your eye is less inclined to 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
 static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
 static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
@@ -18,8 +17,11 @@ static const unsigned int gappov    = 30;       /* vert outer gap between window
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=10" };
+static const int swallowfloating    = 1;        /* 1 means swallow floating windows by default */
+
+static const char *fonts[]          = { "monospace:size=10", "terminus-font:size=12", "mononoki-nerd:size=12", "NotoColorEmoji:size=10:antialias=true:autohint=true" };
 static const char dmenufont[]       = "monospace:size=10";
+
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -32,6 +34,11 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
+// ICONS
+// static const char *tags[] = { "🚧", "🕸", "⚙", "📦", "🎶", "📽", "💬", "📄", "🎨" };
+// NAME
+// static const char *tags[] = { "dev", "www", "sys", "vbox", "mus", "vid", "chat", "doc", "gfx" };
+// NUMBERS
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
@@ -71,8 +78,17 @@ static const Layout layouts[] = {
 	{ NULL,       NULL },
 };
 
+	// OTHER LAYOUT SYMBOL OPTIONS
+	// { "[ T ]",      tile },    /* first entry is default */
+	// { "[ F ]",      NULL },    /* no layout function means floating behavior */
+	// { "[ M ]",      monocle },
+	// { "🐧 ",      tile },    /* first entry is default */
+	// { "👻 ",      NULL },    /* no layout function means floating behavior */
+	// { "🔍 ",      monocle },
+
+
 /* key definitions */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask // Windows Key
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -86,6 +102,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *editcmd[]  = { "mousepad", NULL };
+static const char *browsercmd[]  = { "qutebrowser", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
