@@ -43,19 +43,18 @@ sleep 10
 
 clear
 
-##### I am including my patched version in the clone
-#git clone https://git.suckless.org/dwm ~/dwm
-#sleep 10
+git clone https://git.suckless.org/dwm ~/dwm
+sleep 10
 
-#clear
+clear
 
-#git clone https://git.suckless.org/dmenu ~/dmenu
-#sleep 10
+git clone https://git.suckless.org/dmenu ~/dmenu
+sleep 10
 
-#clear
+clear
 
-#git clone https://git.suckless.org/st ~/st
-#sleep 10
+git clone https://git.suckless.org/st ~/st
+sleep 10
 
 #clear
 
@@ -64,7 +63,6 @@ sleep 10
 
 clear
 
-cp -r $INSTALL_PATH/dwm-6.5 ~/dwm 2>&1 | tee -a $LOG
 cd ~/dwm
 echo "Compiling dwm - Dynamic Window Manager"
 sudo make clean install
@@ -73,7 +71,6 @@ sleep 10
 
 clear
 
-cp -r $INSTALL_PATH/dmenu-5.3 ~/dmenu 2>&1 | tee -a $LOG
 cd ~/dmenu
 echo "Compiling dmenu - Dynamic Menu"
 sudo make clean install
@@ -82,7 +79,6 @@ sleep 10
 
 clear
 
-cp -r $INSTALL_PATH/st-0.9.1 ~/st 2>&1 | tee -a $LOG
 cd ~/st
 echo "Compiling st - Simple Terminal"
 sudo make clean install
