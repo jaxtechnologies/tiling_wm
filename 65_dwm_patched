@@ -37,13 +37,8 @@ clear
 #################################### INSTALL BASE APPS ###########################################
 ##################################################################################################
 
-sudo pacman -Syu fish eza fastfetch git vim gcc make base-devel pkgconf xorg xorg-xinit feh sxiv python-pywal terminus-font ttf-mononoki-nerd noto-fonts-emoji \
-ranger lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet sxhkd gxmessage
-sleep 10
-
-clear
-
-git clone https://github.com/jaxtechnologies/wallpapers ~/wallpapers
+sudo pacman -Syu fish eza fastfetch git vim gcc make base-devel pkgconf xorg xorg-xinit feh gxmessage sxiv python-pywal terminus-font ttf-mononoki-nerd noto-fonts-emoji \
+ranger lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet
 sleep 10
 
 clear
@@ -75,41 +70,40 @@ sleep 10
 
 clear
 
-##### Make sure xsessions directory exists and add dwm.desktop file
+##### wallpapers -- Make sure wallpapers directory exists or add wallpapers if it doesn't exist
+[ ! -d ~/wallpapers ] && mkdir -p ~/wallpapers 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/wallpapers/* ~/wallpapers/ 2>&1 | tee -a $LOG
+
+##### xsessions -- Make sure xsessions directory exists and add dwm.desktop file
 ##### This file allows users to select DWM as a session option when logging into their system through a display manager.
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
 sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
 
-##### Make sure fish directory exists and add users config.fish file and change shell to fish
+##### fish -- Make sure fish directory exists and add users config.fish file and change shell to fish
 [ ! -d ~/.config/fish ] && mkdir -p ~/.config/fish 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/config.fish ~/.config/fish/ 2>&1 | tee -a $LOG
 chsh -s /bin/fish
 
-##### Make sure ~/.config/sxiv/exec directory exists and add key-handler file
+##### sxiv -- Make sure ~/.config/sxiv/exec directory exists and add key-handler file
 [ ! -d ~/.trash ] && mkdir -p ~/.trash 2>&1 | tee -a $LOG
 [ ! -d ~/.config/sxiv/exec ] && mkdir -p ~/.config/sxiv/exec 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/key-handler ~/.config/sxiv/exec/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/gxmessage_wallpaper ~/gxmessage_wallpaper 2>&1 | tee -a $LOG
 
-##### Make sure sxhkd directory exists and add sxhkd config files to appropriate directories
-[ ! -d ~/.config/sxhkd ] && mkdir -p ~/.config/sxhkd 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/sxhkdrc ~/.config/sxhkd/ 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/keybindings ~/keybindings 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/sxhkd.desktop ~/.config/autostart/ 2>&1 | tee -a $LOG
-
-##### Add .vimrc file to $HOME directory
+##### .vimrc -- Add .vimrc file to $HOME directory
 cp $INSTALL_PATH/configs/.vimrc ~/ 2>&1 | tee -a $LOG
 
-##### Add file for .xprofile to home directory to launch wallpaper via feh and exec dwm on login
+##### .xprofile -- Add file for .xprofile to home directory to launch wallpaper via feh and exec dwm on login
 cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
 
-##### Enable and start lightdm
+##### lightdm -- Enable and start lightdm
 echo "Enabling and starting lightdm - Please enter sudo password if requested..."
 sleep 5
 sudo systemctl enable lightdm
 sudo systemctl start lightdm
 sleep 5
 
-##### Enable and start openssh
+##### openssh -- Enable and start openssh
 echo "Enabling and starting openssh - Please enter sudo password if requested..."
 sleep 5
 sudo systemctl enable sshd

@@ -113,7 +113,11 @@ alias hw='hwinfo --short'                                   # Hardware Info
 alias big="expac -H M '%m\t%n' | sort -h | nl"              # Sort installed packages according to size in MB
 alias gitpkg='pacman -Q | grep -i "\-git" | wc -l'          # List amount of -git packages
 alias update='sudo pacman -Syu'
+
+
+# My Aliases
 alias vi='vim'
+alias wp='gxmessage -geometry 200x200 -timeout 0 -file ~/gxmessage_wallpaper & sxiv ~/wallpapers'
 
 # Get fastest mirrors
 alias mirror="sudo cachyos-rate-mirrors"

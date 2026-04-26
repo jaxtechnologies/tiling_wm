@@ -11,6 +11,7 @@ do
   "C-c")
       echo -n "$file" | xclip -selection clipboard ;;
   "C-w")
-      wal -i "$file" ;;
+      wal -i "$file"
+      sed -i "1c feh --bg-fill $file &" ~/.xprofile ;;
   esac
 done
