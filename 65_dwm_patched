@@ -125,7 +125,7 @@ if [ "$REPLY" = "y" ]; then
   sleep 2
   
 else
-	cancel
+  exit
 fi
 
 exit
