@@ -37,8 +37,8 @@ clear
 #################################### INSTALL BASE APPS ###########################################
 ##################################################################################################
 
-sudo pacman -Syu fish eza fastfetch git vim gcc make base-devel pkgconf xorg xorg-xinit feh gxmessage sxiv python-pywal terminus-font ttf-mononoki-nerd noto-fonts-emoji \
-ranger lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet
+sudo pacman -Syu fish eza fastfetch git neovim gcc make base-devel pkgconf xorg xorg-xinit feh gxmessage sxiv python-pywal terminus-font ttf-mononoki-nerd noto-fonts-emoji \
+lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet
 sleep 10
 
 clear
@@ -90,7 +90,9 @@ chsh -s /bin/fish
 cp $INSTALL_PATH/configs/key-handler ~/.config/sxiv/exec/ 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/gxmessage_wallpaper ~/gxmessage_wallpaper 2>&1 | tee -a $LOG
 
-##### .vimrc -- Add .vimrc file to $HOME directory
+##### .vimrc & init.vim -- Add .vimrc file to $HOME directory and init.vim file to neovim config
+[ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/.vimrc ~/.config/nvim/init.vim 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/.vimrc ~/ 2>&1 | tee -a $LOG
 
 ##### .xprofile -- Add file for .xprofile to home directory to launch wallpaper via feh and exec dwm on login
