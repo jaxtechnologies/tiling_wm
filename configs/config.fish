@@ -117,6 +117,7 @@ alias update='sudo pacman -Syu'
 
 # My Aliases
 alias vi='vim'
+alias v='nvim'
 alias wp='gxmessage -geometry 200x200 -timeout 0 -file ~/gxmessage_wallpaper & sxiv ~/wallpapers'
 
 # Get fastest mirrors
