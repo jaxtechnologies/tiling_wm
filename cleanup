@@ -1,0 +1,14 @@
+echo " Removing .trash directory"
+rm -rf .trash
+echo " Removing wallpapers directory"
+rm -rf wallpapers
+echo " Removing dmenu directory"
+rm -rf dmenu
+echo " Removing st directory"
+rm -rf st
+echo " Removing dwm-build directory"
+rm -rf dwm-build
+echo " Removing dwm directory"
+rm -rf dwm
+echo " Currently cloning new copy of dwm-build"
+git clone https://github.com/jaxtechnologies/dwm-build
