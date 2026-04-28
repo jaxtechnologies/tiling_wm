@@ -70,6 +70,15 @@ sleep 10
 
 clear
 
+cp -r $INSTALL_PATH/dwmblocks ~/dwmblocks 2>&1 | tee -a $LOG
+cd ~/dwmblocks
+echo "Compiling dwmblocks - Modular status bar"
+make && sudo make install
+echo "Compiling dwmblocks - Complete"
+sleep 10
+
+clear
+
 ##### wallpapers -- Make sure wallpapers directory exists or add wallpapers if it doesn't exist
 [ ! -d ~/wallpapers ] && mkdir -p ~/wallpapers 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/wallpapers/* ~/wallpapers/ 2>&1 | tee -a $LOG
