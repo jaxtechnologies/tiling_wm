@@ -1,2 +1,3 @@
 feh --bg-fill ~/wallpapers/04_odin_dark.jpg &
+dwmblocks &
 exec dwm
