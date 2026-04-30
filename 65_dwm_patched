@@ -79,6 +79,11 @@ sleep 10
 
 clear
 
+echo ""
+echo "Please enter sudo password if requested..."
+echo ""
+sleep 5
+
 ##### wallpapers -- Make sure wallpapers directory exists or add wallpapers if it doesn't exist
 [ ! -d ~/wallpapers ] && mkdir -p ~/wallpapers 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/wallpapers/* ~/wallpapers/ 2>&1 | tee -a $LOG
@@ -112,14 +117,14 @@ cp $INSTALL_PATH/configs/.vimrc ~/ 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
 
 ##### lightdm -- Enable and start lightdm
-echo "Enabling and starting lightdm - Please enter sudo password if requested..."
+echo "Enabling and starting lightdm..."
 sleep 5
 sudo systemctl enable lightdm
 sudo systemctl start lightdm
 sleep 5
 
 ##### openssh -- Enable and start openssh
-echo "Enabling and starting openssh - Please enter sudo password if requested..."
+echo "Enabling and starting openssh..."
 sleep 5
 sudo systemctl enable sshd
 sudo systemctl start sshd
