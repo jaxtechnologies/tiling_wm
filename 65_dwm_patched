@@ -83,6 +83,10 @@ clear
 [ ! -d ~/wallpapers ] && mkdir -p ~/wallpapers 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/wallpapers/* ~/wallpapers/ 2>&1 | tee -a $LOG
 
+##### scripts -- Make sure scripts directory exists and add scripts if it doesn't exist
+[ ! -d ~/scripts ] && mkdir -p ~/scripts 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/scripts/* ~/scripts/ 2>&1 | tee -a $LOG
+
 ##### xsessions -- Make sure xsessions directory exists and add dwm.desktop file
 ##### This file allows users to select DWM as a session option when logging into their system through a display manager.
 [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
