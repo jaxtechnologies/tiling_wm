@@ -1,0 +1,43 @@
+#!/usr/bin/env sh
+
+# --- Configuration ---
+DWM_PATH="$HOME/dwm"
+WALLPAPER_DIR="$HOME/wallpapers"
+# Example terminal configs
+ALACRITTY_CONF="$HOME/.config/alacritty/alacritty.toml"
+
+# --- Theme Setup ---
+set_theme() {
+    THEME="$1"
+    
+    # 1. Change DWM Colors in config.h (Assumes HEX values)
+    if [ "$THEME" = "dark" ]; then
+        # Example using sed to change colors
+        sed -i 's/col_gray1\[\] = ".*"/col_gray1\[\] = "#1a1a1a"/g' "$DWM_PATH/config.h"
+        sed -i 's/col_cyan\[\] = ".*"/col_cyan\[\] = "#005577"/g' "$DWM_PATH/config.h"
+        WALLPAPER="dark-wall.jpg"
+    else
+        sed -i 's/col_gray1\[\] = ".*"/col_gray1\[\] = "#ffffff"/g' "$DWM_PATH/config.h"
+        sed -i 's/col_cyan\[\] = ".*"/col_cyan\[\] = "#00aacc"/g' "$DWM_PATH/config.h"
+        WALLPAPER="light-wall.jpg"
+    fi
+
+    # 2. Rebuild DWM
+    cd "$DWM_PATH" || exit
+    sudo make clean install
+
+    # 3. Apply Wallpaper (requires feh)
+    feh --bg-fill "$WALLPAPER_DIR/$WALLPAPER"
+
+    # 4. Restart DWM to apply changes (if not using special patches)
+    # This keybind depends on your config.h
+    xdotool key super+shift+q 
+}
+
+# --- Argument Handling ---
+case "$1" in
+    dark) set_theme dark ;;
+    light) set_theme light ;;
+    *) echo "Usage: $0 {dark|light}" ;;
+esac
+

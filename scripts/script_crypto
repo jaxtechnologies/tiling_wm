@@ -1,0 +1,6 @@
+#!/bin/bash
+while true; do
+    btc_price=$(curl -s 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json' | jq -r '.bpi.USD.rate')
+    xsetroot -name "BTC: $btc_price"
+    sleep 300
+done 
