@@ -1,13 +1,13 @@
---Launch Terminal
+--Launch Terminal (st)
     super + return
 
---Launch Browser
+--Launch Browser (firefox)
     super + shift + b
 
---Launch Editor
+--Launch Editor (mousepad)
     super + shift + e
 
---Launch Wallpaper Viewer
+--Launch Wallpaper Viewer (sxiv)
     super + shift + w
 
 --Launch This Help Menu
