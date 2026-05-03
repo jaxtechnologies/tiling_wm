@@ -8,7 +8,7 @@
     super + shift + e
 
 --Launch Wallpaper Viewer (sxiv)
-    super + shift + w
+    super + shift + w    [ctrl + x + w]
 
 --Launch This Help Menu
     super + shift + h
