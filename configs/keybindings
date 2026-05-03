@@ -1,5 +1,5 @@
 --Launch Browser
-    shift + super + i
+    super + shift + b
 
 --Launch Terminal
     shift + super + t
@@ -12,3 +12,13 @@
 
 --Launch This Help Menu
     shift + super + h
+
+
+
+
+super + shift + b
+  firefox
+super + shift + e
+  mousepad
+super + shift + h
+  gxmessage -geometry 400x600 -timeout 0 -file ~/keybindings
