@@ -1,24 +1,11 @@
+--Launch Terminal
+    super + return
+
 --Launch Browser
     super + shift + b
 
---Launch Terminal
-    shift + super + t
-
---Launch File Manager
-    shift + super + f
-
---Launch Music Player
-    shift + super + m
+--Launch Editor
+    super + shift + e
 
 --Launch This Help Menu
-    shift + super + h
-
-
-
-
-super + shift + b
-  firefox
-super + shift + e
-  mousepad
-super + shift + h
-  gxmessage -geometry 400x600 -timeout 0 -file ~/keybindings
+    super + shift + h
