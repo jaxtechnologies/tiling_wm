@@ -4,5 +4,8 @@ super + shift + b
 super + shift + e
   mousepad
 
+super + shift + w
+  sxiv ~/wallpapers
+
 super + shift + h
   gxmessage -geometry 400x600 -timeout 0 -file ~/keybindings
