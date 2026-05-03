@@ -92,7 +92,6 @@ cp $INSTALL_PATH/wallpapers/* ~/wallpapers/ 2>&1 | tee -a $LOG
 [ ! -d ~/.config/sxhkd ] && mkdir -p ~/.config/sxhkd 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/keybindings ~/keybindings 2>&1 | tee -a $LOG
 cp $INSTALL_PATH/configs/sxhkdrc ~/.config/sxhkd/ 2>&1 | tee -a $LOG
-cp $INSTALL_PATH/configs/sxhkd.desktop ~/.config/autostart/ 2>&1 | tee -a $LOG
 
 ##### scripts -- Make sure scripts directory exists and add scripts if it doesn't exist
 [ ! -d ~/scripts ] && mkdir -p ~/scripts 2>&1 | tee -a $LOG
