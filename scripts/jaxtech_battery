@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+FATAL="\e[38;5;1m"       ### Red
+WARN="\e[38;5;11m"       ### Yellow
+OK="\e[38;5;10m"         ### Green
+
+## Battery Info
+	BAT=$(upower -i `upower -e | grep 'BAT'` | grep 'percentage' | cut -d':' -f2 | tr -d '%,[:blank:]')
+	AC=$(upower -i `upower -e | grep 'BAT'` | grep 'state' | cut -d':' -f2 | tr -d '[:blank:]')
+
+	if [[ "$AC" == "charging" ]]; then
+		printf "${WARN}  $BAT%%"
+	elif [[ "$AC" == "fully-charged" ]]; then
+		printf "${OK}  Full"
+	else
+		if [[ ("$BAT" -ge "0") && ("$BAT" -le "20") ]]; then
+			printf "${FATAL}   $BAT%%"
+		elif [[ ("$BAT" -ge "20") && ("$BAT" -le "40") ]]; then
+			printf "${WARN}   $BAT%%"
+		elif [[ ("$BAT" -ge "40") && ("$BAT" -le "60") ]]; then
+			printf "${WARN}   $BAT%%"
+		elif [[ ("$BAT" -ge "60") && ("$BAT" -le "80") ]]; then
+			printf "${OK}   $BAT%%"
+		elif [[ ("$BAT" -ge "80") && ("$BAT" -le "100") ]]; then
+			printf "${OK}   $BAT%%"
+		fi
+	fi
+
