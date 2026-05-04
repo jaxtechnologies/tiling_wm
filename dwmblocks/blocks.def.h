@@ -3,7 +3,7 @@ static const Block blocks[] = {
 	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
 	{"", 	"~/scripts/mod_battery.sh",		60,		0},
 
-	{"", 	"~/scripts/mod_disks.sh",		60,		0},
+	{"💽", 	"~/scripts/jt-disk",		60,		0},
 
 	{"",	"~/scripts/mod_memory.sh",		30,		0},
 
