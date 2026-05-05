@@ -1,0 +1,4 @@
+#!/bin/sh
+# Update memory usage for dwmblocks
+free -h | awk 'NR==2 {printf "%s", $5}' | sed s/i//g
+
