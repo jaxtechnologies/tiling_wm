@@ -1,6 +1,8 @@
 //Modify this file to change what commands output to your statusbar, and recompile using the make command.
 static const Block blocks[] = {
 	/*Icon*/	/*Command*/		/*Update Interval*/	/*Update Signal*/
+	{"", 	"~/scripts/jt-kernel",		3600,		0},
+
 	{"", 	"~/scripts/jt-battery",		60,		0},
 
 	{"💿 ", 	"~/scripts/jt-disk",		60,		0},
