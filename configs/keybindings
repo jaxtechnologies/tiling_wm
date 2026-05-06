@@ -7,6 +7,9 @@
 --Launch Editor (mousepad)
     super + shift + e
 
+--Launch Screen Lock (slock)
+    super + shift + l
+
 --Launch Wallpaper Viewer (sxiv)
     super + shift + w    [ctrl + x + w]
 
