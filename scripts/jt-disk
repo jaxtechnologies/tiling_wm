@@ -1,5 +1,5 @@
 #!/bin/sh
+
 # Get disk usage for root directory, show percentage used
 #df -h / | awk 'NR==2 {printf "sda2: %s/%s (%s)", $3, $2, $5}'
 df -h / | awk 'NR==2 {printf "%s", $5}'
-
