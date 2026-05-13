@@ -1,0 +1,164 @@
+#!/bin/bash
+# NAME: JT_DWM
+# DESC: An installation and deployment script for JaxTech's DWM Desktop.
+# Adapted from Derek Taylor's (DistroTube) DTOS script...
+# Top logo inspiration came from Chris Titus's ArchTitus script...
+
+
+################################################################################
+#################################### To Do #####################################
+################################################################################
+#
+# Fix fonts and colors in terminal
+#
+
+INSTALL_PATH=$(pwd)
+LOG=$INSTALL_PATH/dwm_setup.log
+rm $LOG > /dev/null 2>&1
+
+clear
+
+echo -ne "
+   ████████╗  █████╗  ██╗   ██╗  ████████╗ ███████╗  ██████╗ ██╗  ██╗
+   ╚══██╔══╝ ██╔══██╗  ██╗ ██╔╝  ╚══██╔══╝ ██╔════╝ ██╔════╝ ██║  ██║
+      ██║    ███████║   ████╔╝      ██║    ███████╗ ██║      ███████║
+   ██ ██║    ██╔══██║  ██╔╝██╗      ██║    ██╔════╝ ██║      ██╔══██║
+   ╚███╔╝    ██║  ██║ ██╔╝  ██╗     ██║    ███████╗ ╚██████╗ ██║  ██║
+    ╚══╝     ╚═╝  ╚═╝ ╚═╝   ╚═╝     ╚═╝    ╚══════╝  ╚═════╝ ╚═╝  ╚═╝
+"
+echo ""
+echo " Jax|Tech Setup Script will launch in 5 seconds..."
+
+sleep 5
+
+clear
+
+##################################################################################################
+#################################### INSTALL BASE APPS ###########################################
+##################################################################################################
+
+sudo pacman -Syu fish eza fastfetch git vim neovim gcc make base-devel pkgconf xorg xorg-xinit feh gxmessage sxiv python-pywal terminus-font ttf-mononoki-nerd noto-fonts-emoji \
+lightdm lightdm-gtk-greeter openssh firefox qutebrowser mousepad figlet sxhkd slock dunst
+sleep 10
+
+clear
+
+###cp -r $INSTALL_PATH/dwm-6.5-patched ~/dwm 2>&1 | tee -a $LOG
+git clone https://github.com/lukesmithxyz/dwm ~/dwm
+cd ~/dwm
+echo "Compiling dwm - Dynamic Window Manager"
+sudo make clean install
+echo "Compiling dwm - Complete"
+sleep 10
+
+clear
+
+###cp -r $INSTALL_PATH/dmenu-5.3 ~/dmenu 2>&1 | tee -a $LOG
+git clone https://github.com/lukesmithxyz/dmenu ~/dmenu
+cd ~/dmenu
+echo "Compiling dmenu - Dynamic Menu"
+sudo make clean install
+echo "Compiling dmenu - Complete"
+sleep 10
+
+clear
+
+###cp -r $INSTALL_PATH/st-0.9.1 ~/st 2>&1 | tee -a $LOG
+git clone https://github.com/lukesmithxyz/st ~/st
+cd ~/st
+echo "Compiling st - Simple Terminal"
+sudo make clean install
+echo "Compiling st - Complete"
+sleep 10
+
+clear
+
+###cp -r $INSTALL_PATH/dwmblocks ~/dwmblocks 2>&1 | tee -a $LOG
+git clone https://github.com/lukesmithxyz/dwmblocks ~/dwmblocks
+cd ~/dwmblocks
+echo "Compiling dwmblocks - Modular status bar"
+make && sudo make install
+echo "Compiling dwmblocks - Complete"
+sleep 10
+
+clear
+
+echo ""
+echo "Please enter sudo password if requested..."
+echo ""
+sleep 5
+
+##### wallpapers -- Make sure wallpapers directory exists or add wallpapers if it doesn't exist
+[ ! -d ~/wallpapers ] && mkdir -p ~/wallpapers 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/wallpapers/* ~/wallpapers/ 2>&1 | tee -a $LOG
+
+##### sxhkd -- Make sure sxhkd directory exists and add config files neccessary to use
+[ ! -d ~/.config/sxhkd ] && mkdir -p ~/.config/sxhkd 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/keybindings ~/keybindings 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/sxhkdrc ~/.config/sxhkd/ 2>&1 | tee -a $LOG
+
+##### dunst -- Make sure dunst directory exists and add config files neccessary to use notification daemon
+[ ! -d ~/.config/dunst ] && mkdir -p ~/.config/dunst 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/dunstrc ~/.config/dunst/ 2>&1 | tee -a $LOG
+
+##### scripts -- Make sure scripts directory exists and add scripts if it doesn't exist
+[ ! -d ~/scripts ] && mkdir -p ~/scripts 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/scripts/* ~/scripts/ 2>&1 | tee -a $LOG
+
+##### xsessions -- Make sure xsessions directory exists and add dwm.desktop file
+##### This file allows users to select DWM as a session option when logging into their system through a display manager.
+[ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
+sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
+
+##### fish -- Make sure fish directory exists and add users config.fish file and change shell to fish
+[ ! -d ~/.config/fish ] && mkdir -p ~/.config/fish 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/config.fish ~/.config/fish/ 2>&1 | tee -a $LOG
+chsh -s /bin/fish
+
+##### sxiv -- Make sure ~/.config/sxiv/exec directory exists and add key-handler file
+[ ! -d ~/.trash ] && mkdir -p ~/.trash 2>&1 | tee -a $LOG
+[ ! -d ~/.config/sxiv/exec ] && mkdir -p ~/.config/sxiv/exec 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/key-handler ~/.config/sxiv/exec/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/gxmessage_wallpaper ~/gxmessage_wallpaper 2>&1 | tee -a $LOG
+
+##### .vimrc & init.vim -- Add .vimrc file to $HOME directory and init.vim file to neovim config
+[ ! -d ~/.config/nvim ] && mkdir -p ~/.config/nvim/ 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/.vimrc ~/.config/nvim/init.vim 2>&1 | tee -a $LOG
+cp $INSTALL_PATH/configs/.vimrc ~/ 2>&1 | tee -a $LOG
+
+##### .xprofile -- Add file for .xprofile to home directory to launch wallpaper via feh and exec dwm on login
+cp $INSTALL_PATH/configs/.xprofile ~/.xprofile 2>&1 | tee -a $LOG
+
+##### lightdm -- Enable and start lightdm
+echo "Enabling and starting lightdm..."
+sleep 5
+sudo systemctl enable lightdm
+sudo systemctl start lightdm
+sleep 5
+
+##### openssh -- Enable and start openssh
+echo "Enabling and starting openssh..."
+sleep 5
+sudo systemctl enable sshd
+sudo systemctl start sshd
+sudo ufw allow ssh
+sleep 5
+
+#########################################################################################
+#################################### SETUP COMPLETE #####################################
+#########################################################################################
+clear
+echo ""
+read -p "Setup is Complete - Reboot the Machine NOW (y/n)? "
+if [ "$REPLY" = "y" ]; then
+
+  echo "" 2>&1 | tee -a $LOG
+  echo Rebooting Now... 2>&1 | tee -a $LOG
+  sudo reboot 2>&1 | tee -a $LOG
+  sleep 2
+  
+else
+  exit
+fi
+
+exit
