@@ -102,7 +102,7 @@ sleep 5
 ##### xsessions -- Make sure xsessions directory exists and add dwm.desktop file
 ##### This file allows users to select DWM as a session option when logging into their system through a display manager.
 # [ ! -d /usr/share/xsessions ] && sudo mkdir -p /usr/share/xsessions 2>&1 | tee -a $LOG
-# sudo cp $INSTALL_PATH/configs/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
+# sudo cp $INSTALL_PATH/.config/dwm.desktop /usr/share/xsessions/ 2>&1 | tee -a $LOG
 
 ##### lightdm -- Enable and start lightdm
 echo "Enabling and starting lightdm..."
